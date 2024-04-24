@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
+import { useContext, useState } from "react";
 import useAuth from "../Hooks/useAuth";
+import { AuthContext } from "../Providers/AuthProvider";
 
 const Register = () => {
 
@@ -8,7 +9,7 @@ const Register = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const{createUser, user} = useAuth();
+    const{createUser, user} = useContext(AuthContext);
     console.log(user)
 
 
@@ -17,6 +18,11 @@ const Register = () => {
         // console.log(email, password)
    
         createUser(email,password)
+        .then((result) => {
+         console.log(result); 
+        }).catch((err) => {
+          console.log(err)
+        });
      
     };
 
@@ -43,6 +49,7 @@ const Register = () => {
                 <span className="label-text">Email</span>
               </label>
               <input
+                name="email"
                 type="email"
                 placeholder="email"
                 className="input input-bordered"
@@ -55,6 +62,7 @@ const Register = () => {
                 <span className="label-text">Password</span>
               </label>
               <input
+                name="password"
                 type="password"
                 placeholder="password"
                 className="input input-bordered"
